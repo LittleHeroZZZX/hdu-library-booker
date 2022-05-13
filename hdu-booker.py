@@ -245,9 +245,9 @@ class Library():
         按seatlist列表顺序抢座位
         """
         global show_log
-        incident = self.settings["incident"]
+        interval = self.settings["interval"]
         max_try_times = self.settings["max_try_times"]
-        print(f"当前抢座位时间间隔为：{incident}秒，最大尝试次数为：{max_try_times}")
+        print(f"当前抢座位时间间隔为：{interval}秒，最大尝试次数为：{max_try_times}")
         print("开始抢座位！")
         for _ in tqdm(range(max_try_times), file=sys.stdout):
             for seat in self.seat_list:
@@ -264,7 +264,7 @@ class Library():
                 else:
                     if show_log:
                         print(response)
-                    sleep(incident)
+                    sleep(interval)
         print("抢座位失败！")
     def update_seat_time(self):
         """
