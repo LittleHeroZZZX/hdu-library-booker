@@ -19,7 +19,7 @@ session:
     query_seats: https://hdu.huitu.zhishulib.com/Seat/Index/searchSeats
   verify: false
 settings:
-  incident: 3
+  interval: 3
   max_try_times: 50
 user_info:
   login_name: null
