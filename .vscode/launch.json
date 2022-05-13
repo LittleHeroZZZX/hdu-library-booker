@@ -14,7 +14,7 @@
             "justMyCode": true,
             "args": [
                 "--config",
-                "./config.yaml",
+                "./myconfig.yaml",
                 "--show_log",
                 "true"
             ]
