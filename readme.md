@@ -18,7 +18,7 @@
 3. 运行脚本
 
     ```bash
-    python hdu-library-booker.py --config config.yaml --show_log false
+    python hdu-booker.py --config config.yaml --show_log false
     ```
 
 4. 接下来可按照脚本提示添加座位愉快抢座啦~
