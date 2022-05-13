@@ -1,8 +1,11 @@
 from ast import arg
+from sched import scheduler
 from urllib import response
+from pytz import timezone
 import requests as req
 import datetime as dt
 import time
+from time import sleep
 import yaml
 import os
 import argparse
@@ -11,6 +14,7 @@ import logging
 from tqdm import tqdm
 import sys
 import signal
+from apscheduler.schedulers.blocking import BlockingScheduler
 req.packages.urllib3.disable_warnings()
 
 
@@ -260,7 +264,7 @@ class Library():
                 else:
                     if show_log:
                         print(response)
-                    time.sleep(incident)
+                    sleep(incident)
         print("抢座位失败！")
     def update_seat_time(self):
         """
@@ -276,8 +280,31 @@ class Library():
             seat["data"]["beginTime"] = begin_time.timestamp()
             seat["data"]["duration"] = duration
         print("更新成功！")
-        time.sleep(1)
+        sleep(1)
 
+    def specify_time(self):
+        """
+        指定时间抢座位
+        """
+        time = input("请输入程序开始运行时间（格式：yyyy-mm-dd hh:mm:ss）：")
+        time = dt.datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
+        time_now = dt.datetime.now()
+        time_delta = time - time_now
+        if time_delta.total_seconds() < 0:
+            print("指定时间已过！")
+            sleep(1)
+            return
+        elif time_delta.total_seconds() > 24*3600:
+            print("指定时间超过一天！请明天再运行本程序！")
+            sleep(1)
+            return
+        else:
+            hours, minutes, seconds = time_delta.seconds//3600, time_delta.seconds//60%60, time_delta.seconds%60
+            print(f"程序将在{hours}小时{minutes}分钟{seconds}秒后开始运行！")
+            print("请保持程序运行，程序将在指定时间后自动抢座！")
+            scheduler = BlockingScheduler(timezone="Asia/Shanghai")
+            scheduler.add_job(self.run, "cron", year=time.year, month=time.month, day=time.day, hour=time.hour, minute=time.minute, second=time.second)
+            scheduler.start()
 
 
 
@@ -322,18 +349,21 @@ if __name__=="__main__":
         print("\n\n")
         print("""请输入功能代码：
             1、 修改待选座位列表
-            2、 开始抢座位
-            3、 一键更新待抢座位时间（批量修改列表中的预约时间段）
-            4、 退出
+            2、 一键更新待抢座位时间（批量修改列表中的预约时间段）
+            3、 开始抢座位
+            4、 定时抢座位
+            5、 退出
             """)
         fun = input()
         lib.update_config()
         if fun == "1":
             lib.show_seat_list()
-        elif fun == "2":
-            lib.run()
         elif fun == "3":
+            lib.run()
+        elif fun == "2":
             lib.update_seat_time()
+        elif fun == "4":
+            lib.specify_time()
         else:
             lib.update_config()
             print("程序退出！")
