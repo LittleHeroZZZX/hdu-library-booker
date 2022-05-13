@@ -1,0 +1,7 @@
+beautifulsoup4==4.11.1
+python_rapidjson==1.6
+PyYAML==6.0
+rapidjson==1.0.0
+requests==2.25.1
+selenium==4.1.5
+tqdm==4.63.0
