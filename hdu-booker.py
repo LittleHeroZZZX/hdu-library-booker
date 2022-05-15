@@ -14,9 +14,15 @@ import logging
 from tqdm import tqdm
 import sys
 import signal
+import pandas as pd
 from apscheduler.schedulers.blocking import BlockingScheduler
 req.packages.urllib3.disable_warnings()
 
+
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
+pd.set_option('display.width', None)
+pd.set_option("display.colheader_justify", "center")
 
 class Library():
     def __init__(self, config_file = None) -> None:
@@ -214,11 +220,25 @@ class Library():
             self.query_and_add_seat()
             return
         print("当前待选座位列表：")
-        for i, seat in enumerate(self.seat_list):
-            print("-"*100)
-            seat_temp = seat.copy()
-            seat_temp.pop("data")
-            pprint({f"序号{i+1}":seat_temp})
+        # for i, seat in enumerate(self.seat_list):
+        #     print("-"*100)
+        #     seat_temp = seat.copy()
+        #     seat_temp.pop("data")
+        #     pprint({f"序号{i+1}":seat_temp})
+        df_seats = pd.DataFrame(self.seat_list)
+        df_seats.drop("data", axis=1, inplace=True)
+        df_seats.loc[:, "序号"] = df_seats.index
+        temp_df = df_seats["位置"].str.split("-", expand=True)
+        df_seats["楼层"] = temp_df[0]
+        df_seats["座位"] = temp_df[1]
+        df_seats.drop(["位置"], axis=1, inplace=True)
+        df_seats = df_seats.loc[:,["序号","楼层","座位","状态","开始时间","结束时间", "持续时间"]]
+        df_seats.index = df_seats["序号"]
+        df_seats.drop(["序号"], axis=1, inplace=True)
+        df_seats.index.name = None
+        df_seats.columns.name = "序号"
+        # df_seats.style.set_properties(**{'text-align': 'center'})  error: Backend Qt5Agg is interactive backend. Turning interactive mode on.
+        print(df_seats)
         print("="*100)
         op = input("请输入需要删除的座位序号，以英文逗号分割，输入0表示不删除，输入-1表示删除所有座位\n")
         if op == "-1":
