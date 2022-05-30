@@ -1,6 +1,20 @@
 # 杭电图书馆抢座脚本
 
-## 使用说明
+
+## 注意事项
+
+**本脚本仅限用于个人抢座，请勿恶意囤座位**  
+配置文件config.yaml-settings参数interval为抢课请求间隔，默认为5，请勿修改过小，有封号风险（一周），后果自负
+
+## 联系作者
+
+关于本脚本的一切问题，请联系作者：[zzzx@hdu.edu.cn](mailto:zzzx@hdu.edu.cn)
+
+## 图形界面使用说明
+图形界面版本已发布！欢迎使用！[下载地址](https://github.com/LitttleHeroZZZX/hdu-library-booker/releases/tag/v1.0]
+下载后请将整个文件夹解压，双击打开ui.exe即可运行
+
+## 命令行版本使用说明
 
 1. 克隆本项目
 
@@ -37,11 +51,4 @@
   * 支持设置在指定时间开启抢座
 
 
-## 注意事项
 
-**本脚本仅限用于个人抢座，请勿恶意囤座位**  
-配置文件config.yaml-settings参数interval为抢课请求间隔，默认为5，请勿修改过小，有封号风险（一周），后果自负
-
-## 联系作者
-
-关于本脚本的一切问题，请联系作者：[zzzx@hdu.edu.cn](mailto:zzzx@hdu.edu.cn)
