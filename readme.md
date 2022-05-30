@@ -11,7 +11,7 @@
 关于本脚本的一切问题，请联系作者：[zzzx@hdu.edu.cn](mailto:zzzx@hdu.edu.cn)
 
 ## 图形界面使用说明
-图形界面版本已发布！欢迎使用！[下载地址](https://github.com/LitttleHeroZZZX/hdu-library-booker/releases/tag/v1.0]
+图形界面版本已发布！欢迎使用！[下载地址](https://github.com/LitttleHeroZZZX/hdu-library-booker/releases/tag/v1.0)
 下载后请将整个文件夹解压，双击打开ui.exe即可运行
 
 ## 命令行版本使用说明
