@@ -34,7 +34,7 @@ class UI():
         初始化hdubooker类，加载配置文件，若配置文件不存在，则退出程序
         """
         try:
-            self.booker = Hdubooker("./myconfig.yaml")
+            self.booker = Hdubooker("config/config.yaml")
         except FileNotFoundError as e:
             box = QtWidgets.QMessageBox(self.login_ui)
             box.setText("未找到指定配置文件！\n请检查程序运行目录下是否存在config.yaml文件！")
@@ -64,6 +64,7 @@ class UI():
     def load_login_ui(self):
         self.login_ui = self.loader.load('./ui/login.ui')
         self.login_ui.login_button.clicked.connect(self.login)
+        self.login_ui.setWindowIcon(QtGui.QIcon("./icon.ico"))
          
 
     def show_login_ui(self):
@@ -75,6 +76,7 @@ class UI():
 
     def load_main_ui(self):
         self.main_ui = self.loader.load('./ui/main.ui')
+        self.main_ui.setWindowIcon(QtGui.QIcon("./icon.ico"))
         self.main_ui.change_button.clicked.connect(self.show_change_ui)
         self.main_ui.imme_run_button.clicked.connect(self.run_imme)
         self.main_ui.wait_run_button.clicked.connect(self.run_wait)
@@ -97,6 +99,7 @@ class UI():
     
     def load_change_ui(self):
         self.change_ui = self.loader.load('./ui/change.ui')
+        self.change_ui.setWindowIcon(QtGui.QIcon("./icon.ico"))
         self.change_ui.add_button.clicked.connect(self.add_seat)
         self.change_ui.delete_all_button.clicked.connect(self.delete_all)
         self.change_ui.delete_one_button.clicked.connect(self.delete_one)
@@ -133,6 +136,7 @@ class UI():
         self.booker.uniform_change(begin_time, duration)
         self.update_seat_table(self.change_ui.seat_table)
         QtWidgets.QMessageBox.information(self.change_ui, "提示", "更改成功！")
+        self.update_config()
 
 
 
@@ -228,6 +232,7 @@ class UI():
         self.update_seat_table(self.main_ui.seat_table)
         self.update_floor_list(self.change_ui.floor)
         self.change_ui.seat_table.setCurrentIndex(self.change_ui.seat_table.model().index(0, 0))
+        self.update_config()
 
     def update_seat_table(self, seat_table):
         seat_list = self.booker.get_seat_list()

@@ -58,6 +58,7 @@ class Hdubooker():
         login_res = self.session.post(url=url, data=self.user_info).json()
         if login_res["CODE"] == "ok":
             self.init_user_info()
+            self.update_config()
             return True
         else:
             return False
