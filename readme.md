@@ -1,5 +1,7 @@
 # 杭电图书馆抢座脚本
 
+## 本项目不再维护，欢迎使用代替品[hdu library killer](https://github.com/LittleHeroZZZX/hdu-library-killer)。
+
 
 ## 注意事项
 
